@@ -21,13 +21,9 @@ const employees = [
   // given a name and array of employees, return employee
 
   function findEmployeeByName (name, list) {
-      let found = [];
-      list.forEach(employee => {
-          if(employee.name === name) {
-           found = employee
-          }
+      return list.find(employee => {
+          return employee.name === name;
       })
-      return found;
   }
 
   console.log(findEmployeeByName('moe', employees));//{ id: 1, name: 'moe' }
@@ -37,14 +33,9 @@ const employees = [
   //given an employee and a list of employees, return the employee who is the manager
 
 function findManagerFor(name, list) {
-    const managerId = name.managerId;
-    let found = [];
-    list.forEach(employee => {
-        if(employee.id === managerId) {
-            found = employee;
-        }
+    return list.find(manager => {
+        return name.managerId === manager.id;
     })
-    return found;
 }
 
   console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));//{ id: 4, name: 'shep', managerId: 2 }
@@ -55,14 +46,9 @@ function findManagerFor(name, list) {
   //given an employee and a list of employees, return the employees who report to the same manager
 
 function findCoworkersFor(name, list) {
-    let found = [];
-    const managerId = name.managerId;
-    list.forEach(employee => {
-        if(employee.managerId === managerId && employee.name !== name.name) {
-            found.push(employee)
-        }
+    return list.filter(coworker => {
+        return coworker !== name && coworker.managerId === name.managerId;
     })
-    return found;
 }
 
   console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));/*
