@@ -172,7 +172,7 @@ function generateManagementTree (list) {
   //given a tree of employees, generate a display which displays the hierarchy
 
 function generateManagementTree (list) {
-
+    return
 }
 
   displayManagementTree(generateManagementTree(employees));/*
