@@ -93,9 +93,35 @@ function findManagementChainForEmployee(name, list) {
   spacer('generateManagementTree')
   //given a list of employees, generate a tree like structure for the employees, starting with the employee who has no manager. Each employee will have a reports property which is an array of the employees who report directly to them.
 
-function generateManagementTree (list) {
-
-}
+  const staffWorker = (worker) => {
+    return employees.filter((employee) => {
+      return employee.name !== worker.name && employee.managerId === worker.id
+    })
+  }
+  
+  
+  function generateManagementTree (list) {
+    /* 
+    1. Create reports: for [] for each employee;
+    2. Find staff worker with managerId matches with manager's id
+    3. Search if there is staff worker
+    4. Exit the recursion if there is no worker
+    5. return {...list[0], reports:recursion(list[0])}
+    */
+  
+    function recursionEmployee (manager) {
+      const report = staffWorker(manager);
+      if(report.length === undefined) {
+        return []
+      }
+      return report.filter((staff) => {
+        return recursionEmployee(staff)
+      })
+    }
+  
+    return {...list[0], reports: recursionEmployee(list[0])}
+  
+  }
 
   console.log(JSON.stringify(generateManagementTree(employees), null, 2));
   /*
